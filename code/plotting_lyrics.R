@@ -54,3 +54,14 @@ tidy_bts_songs_meaningful_freq %>%
   scale_y_log10(labels = percent_format()) +
   ggtitle("Meaningful English Words in All BTS's Albums")
 
+
+tidy_bts_songs_meaningful_freq %>%
+  ggplot(aes(x = proportion, y = proportion)) +
+  geom_text(aes(label = word), check_overlap = TRUE, vjust = 0.5) +
+  geom_abline(color = "gray40", lty = 2) +
+  geom_jitter(aes(color="FE769C"), alpha = 0.5, size = 2.5, width = 0.7, height = 0.7,
+              show.legend = F) +
+  scale_x_log10(labels = percent_format()) +
+  scale_y_log10(labels = percent_format()) +
+  facet_wrap(~ album_title, nrow=2) +
+  ggtitle("Comparison of All Album's Meaningful English Words")

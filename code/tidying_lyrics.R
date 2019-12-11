@@ -12,14 +12,13 @@ library(readr)
 bts_songs_df <- read_csv("./data/raw_data/raw_BTS_songs.csv")
 
 # Removing duplicate songs because some songs (total 47) appear twice on various albums.
-bts_songs_df <- bts_songs_df %>%
-  distinct(song_title)
+tidy_bts_songs_df <- bts_songs_df %>%
+  distinct(song_title, .keep_all=TRUE)
 
 
 # Tokenizing each lyric
-tidy_bts_songs_df <- bts_songs_df %>%
-  unnest_tokens(word, word) %>%
-  anti_join(stop_words)
+tidy_bts_songs_df <- tidy_bts_songs_df %>%
+  unnest_tokens(word, song_lyrics)
 
 
 # Marking whether the lyric word is English
