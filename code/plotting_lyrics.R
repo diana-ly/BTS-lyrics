@@ -1,4 +1,3 @@
-library(magrittr)
 library(dplyr)
 library(tibble)
 library(tidytext)
@@ -29,13 +28,13 @@ tidy_bts_songs_freq %>%
 
 
 # Filtering out stop words to extract more meaningful English words
-custom_stop_words <- bind_rows(tibble(word = c("ay", "ayy", "la", "i'm", "uh",
-                                               "i'll", "yeah", "hey", "ap"),
+custom_stop_words <- bind_rows(tibble(word = c("ay", "ayy", "la", "i'm", "uh", "na", "ji",
+                                               "i'll", "yeah", "hey", "ap", "wo", "jh", "su"),
                                       lexicon = c("custom")),
                                stop_words)
 
 
-tidy_bts_songs_meaningful_freq <- tidy_bts_songs_meaningful %>%
+tidy_bts_songs_meaningful_freq <- tidy_bts_songs_df %>%
   filter(eng==1) %>%
   mutate(word = gsub("\u2019", "'", word)) %>%
   anti_join(custom_stop_words) %>%
@@ -63,5 +62,5 @@ tidy_bts_songs_meaningful_freq %>%
               show.legend = F) +
   scale_x_log10(labels = percent_format()) +
   scale_y_log10(labels = percent_format()) +
-  facet_wrap(~ album_title, nrow=2) +
+  facet_wrap(~ album_title, nrow=4) +
   ggtitle("Comparison of All Album's Meaningful English Words")
